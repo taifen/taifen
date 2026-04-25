@@ -46,8 +46,9 @@
       --wm-bar-border: rgba(255, 255, 255, 0.1);
       --wm-box-bg: rgba(255, 255, 255, 0.15);
       --wm-box-border: rgba(255, 255, 255, 0.1);
-      --tag-bg: rgba(255, 255, 255, 0.1);
-      --tag-border: rgba(255, 255, 255, 0.05);
+      --tag-bg: rgba(0, 0, 0, 0.2);
+      --tag-border: rgba(255, 255, 255, 0.1);
+      --tag-text-color: #56b6c2;
       --icon-filter: none;
       --icon-opacity: 0.8;
       --cursor-color: #e0def4;
@@ -70,8 +71,9 @@
         --wm-bar-border: rgba(0, 0, 0, 0.1);
         --wm-box-bg: rgba(0, 0, 0, 0.1);
         --wm-box-border: rgba(0, 0, 0, 0.05);
-        --tag-bg: rgba(0, 0, 0, 0.05);
-        --tag-border: rgba(0, 0, 0, 0.05);
+        --tag-bg: rgba(0, 0, 0, 0.06);
+        --tag-border: rgba(0, 0, 0, 0.08);
+        --tag-text-color: #1a7a8c;
         --icon-filter: invert(1);
         --icon-opacity: 0.6;
         --cursor-color: #657b83;
@@ -156,7 +158,7 @@
     }
 
     .tag-text {
-      fill: var(--accent-color);
+      fill: var(--tag-text-color);
       font-size: 20px;
       font-weight: 500;
     }
@@ -178,13 +180,16 @@
 
     /* Apply animation to text elements instead of the group to allow overrides */
     .jittery text {
-      animation: chromaticJitter 0.2s infinite;
+      animation: chromaticJitter 0.25s infinite;
     }
 
     /* Reduce effect intensity for bold/accent text to match visual weight */
-    .jittery .text-accent,
+    .jittery .text-accent {
+      animation: chromaticJitterBold 0.25s infinite;
+    }
+
     .jittery .tag-text {
-      animation: chromaticJitterBold 0.2s infinite;
+      animation: chromaticJitter 0.25s infinite;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -198,29 +203,43 @@
 
     @keyframes chromaticJitter {
       0% {
-        text-shadow: 0.7px 0 0 rgba(255, 0, 0, 0.4), -0.7px 0 0 rgba(0, 255, 255, 0.4);
+        text-shadow: 0.4px 0 0 rgba(255, 0, 0, 0.35), -0.4px 0 0 rgba(0, 255, 255, 0.35);
       }
 
       50% {
-        text-shadow: -0.7px 0 0 rgba(255, 0, 0, 0.4), 0.7px 0 0 rgba(0, 255, 255, 0.4);
+        text-shadow: -0.4px 0 0 rgba(255, 0, 0, 0.35), 0.4px 0 0 rgba(0, 255, 255, 0.35);
       }
 
       100% {
-        text-shadow: 0.3px 0 0 rgba(255, 0, 0, 0.4), -0.3px 0 0 rgba(0, 255, 255, 0.4);
+        text-shadow: 0.2px 0 0 rgba(255, 0, 0, 0.35), -0.2px 0 0 rgba(0, 255, 255, 0.35);
       }
     }
 
     @keyframes chromaticJitterBold {
       0% {
-        text-shadow: 0.4px 0 0 rgba(255, 0, 0, 0.4), -0.4px 0 0 rgba(0, 255, 255, 0.4);
+        text-shadow: 0.15px 0 0 rgba(255, 0, 0, 0.3), -0.15px 0 0 rgba(0, 255, 255, 0.3);
       }
 
       50% {
-        text-shadow: -0.4px 0 0 rgba(255, 0, 0, 0.4), 0.4px 0 0 rgba(0, 255, 255, 0.4);
+        text-shadow: -0.15px 0 0 rgba(255, 0, 0, 0.3), 0.15px 0 0 rgba(0, 255, 255, 0.3);
       }
 
       100% {
-        text-shadow: 0.2px 0 0 rgba(255, 0, 0, 0.4), -0.2px 0 0 rgba(0, 255, 255, 0.4);
+        text-shadow: 0.08px 0 0 rgba(255, 0, 0, 0.3), -0.08px 0 0 rgba(0, 255, 255, 0.3);
+      }
+    }
+
+    @keyframes chromaticJitterTag {
+      0% {
+        text-shadow: 0.08px 0 0 rgba(255, 0, 0, 0.25), -0.08px 0 0 rgba(0, 255, 255, 0.25);
+      }
+
+      50% {
+        text-shadow: -0.08px 0 0 rgba(255, 0, 0, 0.25), 0.08px 0 0 rgba(0, 255, 255, 0.25);
+      }
+
+      100% {
+        text-shadow: 0.04px 0 0 rgba(255, 0, 0, 0.25), -0.04px 0 0 rgba(0, 255, 255, 0.25);
       }
     }
 
@@ -373,37 +392,37 @@
             <!-- Tags with larger text (20px) -->
 
             <g transform="translate(0,0)">
-              <rect width="140" height="36" class="tag-bg" /><text x="70" y="24" text-anchor="middle"
+              <rect width="140" height="36" class="tag-bg" /><text x="70" y="25" text-anchor="middle"
                 class="tag-text">TypeScript</text>
             </g>
 
             <g transform="translate(155,0)">
-              <rect width="90" height="36" class="tag-bg" /><text x="45" y="24" text-anchor="middle"
+              <rect width="90" height="36" class="tag-bg" /><text x="45" y="25" text-anchor="middle"
                 class="tag-text">React</text>
             </g>
 
             <g transform="translate(260,0)">
-              <rect width="110" height="36" class="tag-bg" /><text x="55" y="24" text-anchor="middle"
+              <rect width="110" height="36" class="tag-bg" /><text x="55" y="25" text-anchor="middle"
                 class="tag-text">Node.js</text>
             </g>
 
             <g transform="translate(385,0)">
-              <rect width="60" height="36" class="tag-bg" /><text x="30" y="24" text-anchor="middle"
+              <rect width="60" height="36" class="tag-bg" /><text x="30" y="25" text-anchor="middle"
                 class="tag-text">CSS</text>
             </g>
 
             <g transform="translate(460,0)">
-              <rect width="90" height="36" class="tag-bg" /><text x="45" y="24" text-anchor="middle"
+              <rect width="90" height="36" class="tag-bg" /><text x="45" y="25" text-anchor="middle"
                 class="tag-text">Figma</text>
             </g>
 
             <g transform="translate(565,0)">
-              <rect width="130" height="36" class="tag-bg" /><text x="65" y="24" text-anchor="middle"
+              <rect width="130" height="36" class="tag-bg" /><text x="65" y="25" text-anchor="middle"
                 class="tag-text">Storybook</text>
             </g>
 
             <g transform="translate(710,0)">
-              <rect width="130" height="36" class="tag-bg" /><text x="65" y="24" text-anchor="middle"
+              <rect width="130" height="36" class="tag-bg" /><text x="65" y="25" text-anchor="middle"
                 class="tag-text">Playwright</text>
             </g>
 
