@@ -8,7 +8,7 @@
 
     <!-- Scanline Pattern -->
     <pattern id="scanlines" patternUnits="userSpaceOnUse" width="1" height="4">
-      <rect width="1600" height="4" fill="none" />
+      <rect width="1600" height="4" gmall="none" />
       <rect y="2" width="1600" height="2" fill="rgba(0,0,0,0.15)" />
     </pattern>
 
@@ -349,9 +349,9 @@
               <text x="20" y="70">
                 <tspan class="text-keyword">"exploring"</tspan>
                 <tspan class="text-base">: [</tspan>
-                <tspan class="text-string">"AI Agents"</tspan>
-                <tspan class="text-base">, </tspan>
-                <tspan class="text-string">"Figma Plugins"</tspan>
+                <tspan class="text-string">"Agentic Coding"</tspan>
+                <!-- <tspan class="text-base">, </tspan>
+                <tspan class="text-string">"Figma Plugins"</tspan> -->
                 <tspan class="text-base">]</tspan>
               </text>
 
