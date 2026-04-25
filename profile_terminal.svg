@@ -32,12 +32,13 @@
 
     /* Theme Context */
     .theme-context {
+      /* RGB fallbacks */
       --bg-color: rgba(25, 23, 36, 0.9);
       --text-color: #e0def4;
       --accent-color: #31748f;
       --keyword-color: #eb6f92;
       --string-color: #f6c177;
-      --prompt-color: #9ccfd8;
+      --prompt-color: #8bd5a8;
       --json-bg: rgba(0, 0, 0, 0.2);
       --json-border: #eb6f92;
       --wm-active: #eb6f92;
@@ -46,8 +47,8 @@
       --wm-bar-border: rgba(255, 255, 255, 0.1);
       --wm-box-bg: rgba(255, 255, 255, 0.15);
       --wm-box-border: rgba(255, 255, 255, 0.1);
-      --tag-bg: rgba(0, 0, 0, 0.2);
-      --tag-border: rgba(255, 255, 255, 0.1);
+      --tag-bg: rgba(255, 255, 255, 0.08);
+      --tag-border: rgba(255, 255, 255, 0.06);
       --tag-text-color: #56b6c2;
       --icon-filter: none;
       --icon-opacity: 0.8;
@@ -55,8 +56,24 @@
       --comment-color: rgba(224, 222, 244, 0.6);
     }
 
+    /* OKLCH enhanced colors */
+    @supports (color: oklch(0 0 0)) {
+      .theme-context {
+        --text-color: oklch(0.91 0.035 290);
+        --accent-color: oklch(0.52 0.11 220);
+        --keyword-color: oklch(0.70 0.19 10);
+        --string-color: oklch(0.84 0.15 65);
+        --prompt-color: oklch(0.82 0.14 155);
+        --json-border: oklch(0.70 0.19 10);
+        --wm-active: oklch(0.70 0.19 10);
+        --tag-text-color: oklch(0.73 0.11 200);
+        --cursor-color: oklch(0.91 0.035 290);
+      }
+    }
+
     @media (prefers-color-scheme: light) {
       .theme-context {
+        /* RGB fallbacks */
         --bg-color: rgba(253, 246, 227, 0.9);
         --text-color: #657b83;
         --accent-color: #268bd2;
@@ -78,6 +95,21 @@
         --icon-opacity: 0.6;
         --cursor-color: #657b83;
         --comment-color: rgba(101, 123, 131, 0.6);
+      }
+
+      /* OKLCH enhanced colors for light mode */
+      @supports (color: oklch(0 0 0)) {
+        .theme-context {
+          --text-color: oklch(0.54 0.035 220);
+          --accent-color: oklch(0.60 0.17 245);
+          --keyword-color: oklch(0.58 0.18 45);
+          --string-color: oklch(0.64 0.13 185);
+          --prompt-color: oklch(0.63 0.17 125);
+          --json-border: oklch(0.60 0.17 245);
+          --wm-active: oklch(0.58 0.18 45);
+          --tag-text-color: oklch(0.52 0.10 200);
+          --cursor-color: oklch(0.54 0.035 220);
+        }
       }
     }
 
@@ -179,7 +211,8 @@
     }
 
     /* Apply animation to text elements instead of the group to allow overrides */
-    .jittery text {
+    .jittery text,
+    text.jittery {
       animation: chromaticJitter 0.25s infinite;
     }
 
@@ -195,6 +228,7 @@
     @media (prefers-reduced-motion: reduce) {
 
       .jittery text,
+      text.jittery,
       .jittery .text-accent,
       .jittery .tag-text {
         animation: none;
