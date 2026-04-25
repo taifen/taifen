@@ -17,6 +17,60 @@
       <feGaussianBlur stdDeviation="0.8" result="blur" />
       <feComposite in="SourceGraphic" in2="blur" operator="over" />
     </filter>
+
+    <!-- Chromatic Aberration Filter for Icons -->
+    <filter id="icon-chromatic" x="-20%" y="-20%" width="140%" height="140%">
+      <!-- Red fringe offset to the right -->
+      <feOffset in="SourceGraphic" dx="0.6" dy="0" result="offset-right" />
+      <feColorMatrix in="offset-right" type="matrix"
+        values="1 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0.5 0" result="red-fringe" />
+      <!-- Cyan fringe offset to the left -->
+      <feOffset in="SourceGraphic" dx="-0.6" dy="0" result="offset-left" />
+      <feColorMatrix in="offset-left" type="matrix"
+        values="0 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.5 0" result="cyan-fringe" />
+      <!-- Composite: fringes first, then original on top -->
+      <feMerge>
+        <feMergeNode in="red-fringe" />
+        <feMergeNode in="cyan-fringe" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+
+    <!-- Chromatic Aberration Filter for Icons (Light Mode with invert) -->
+    <filter id="icon-chromatic-light" x="-20%" y="-20%" width="140%" height="140%">
+      <!-- Invert first -->
+      <feColorMatrix in="SourceGraphic" type="matrix"
+        values="-1 0 0 0 1
+                0 -1 0 0 1
+                0 0 -1 0 1
+                0 0 0 1 0" result="inverted" />
+      <!-- Red fringe offset to the right -->
+      <feOffset in="inverted" dx="0.6" dy="0" result="offset-right" />
+      <feColorMatrix in="offset-right" type="matrix"
+        values="1 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0 0
+                0 0 0 0.5 0" result="red-fringe" />
+      <!-- Cyan fringe offset to the left -->
+      <feOffset in="inverted" dx="-0.6" dy="0" result="offset-left" />
+      <feColorMatrix in="offset-left" type="matrix"
+        values="0 0 0 0 0
+                0 1 0 0 0
+                0 0 1 0 0
+                0 0 0 0.5 0" result="cyan-fringe" />
+      <!-- Composite: fringes first, then inverted original on top -->
+      <feMerge>
+        <feMergeNode in="red-fringe" />
+        <feMergeNode in="cyan-fringe" />
+        <feMergeNode in="inverted" />
+      </feMerge>
+    </filter>
   </defs>
 
   <style>
@@ -196,8 +250,14 @@
     }
 
     .sys-icon {
-      filter: var(--icon-filter);
+      filter: url(#icon-chromatic);
       opacity: var(--icon-opacity);
+    }
+
+    @media (prefers-color-scheme: light) {
+      .sys-icon {
+        filter: url(#icon-chromatic-light);
+      }
     }
 
     .cursor {
